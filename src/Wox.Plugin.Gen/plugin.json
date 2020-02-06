@@ -1,0 +1,12 @@
+{
+    "ID": "AC1661A8B7394AD3B8322354A1E5B9BF",
+    "ActionKeyword": "gen",
+    "Name": "Generater",
+    "Description": "Generate GUID (UUID), random numbers, etc.",
+    "Author": "huhubun",
+    "Version": "0.1.0",
+    "Language": "csharp",
+    "Website": "https://bun.dev",
+    "IcoPath": "Images\\gen.png",
+    "ExecuteFileName": "Wox.Plugin.Gen.dll"
+}
