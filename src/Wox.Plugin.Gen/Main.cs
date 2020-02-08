@@ -15,14 +15,14 @@ namespace Wox.Plugin.Gen
         private const int MAX_SCORE = 999;
 
         /// <summary>
-        /// 当前 command 的 helper 确保显示在到数第二行
+        /// 当前 command 的 helper 确保显示在倒数第二行
         /// </summary>
-        private const int COMMAND_SCORE = 1;
+        private const int COMMAND_SCORE = 2;
 
         /// <summary>
-        /// helper 确保显示在最后一行
+        /// global tip 确保显示在最后一行
         /// </summary>
-        private const int HELPER_SCORE = 0;
+        private const int GLOBAL_TIP_SCORE = -1;
 
         private const string GEN_ICON_PATH = "Images/gen.png";
         private const string GUID_ICON_PATH = "Images/key.png";
@@ -69,8 +69,8 @@ namespace Wox.Plugin.Gen
                 Title = GetTranslatedGlobalTipTitle(),
                 SubTitle = GetTranslatedGlobalTipSubTitle(),
                 IcoPath = GEN_ICON_PATH,
-                Action = e => true,
-                Score = HELPER_SCORE
+                Action = e => false,
+                Score = GLOBAL_TIP_SCORE
             });
 
             return results;
@@ -113,13 +113,13 @@ namespace Wox.Plugin.Gen
                 guidStrings = guidStrings.Select(s => s.ToUpper()).ToArray();
             }
 
-            results = guidStrings.Select(s => new Result
+            results = guidStrings.Select((s, index) => new Result
             {
                 Title = s,
                 SubTitle = GetTranslatedGlobalTipCopyToClipboard(),
                 IcoPath = GUID_ICON_PATH,
                 Action = e => _copyToClipboard(s),
-                Score = MAX_SCORE
+                Score = MAX_SCORE - index
             }).ToList();
 
             results.Add(CreateInfo(GetTranslatedGuidTitle(), GetTranslatedGuidSubTitle(), GUID_ICON_PATH));
@@ -222,7 +222,7 @@ namespace Wox.Plugin.Gen
                 Title = title,
                 SubTitle = subTitle,
                 IcoPath = GUID_ICON_PATH,
-                Action = e => true,
+                Action = e => false,
                 Score = COMMAND_SCORE
             };
         }
