@@ -100,8 +100,8 @@ namespace Wox.Plugin.Gen
             // ToString() 默认为小写
             var guidStrings = new string[]
             {
-                _guid.ToString(),           // 00000000-0000-0000-0000-000000000000
                 _guid.ToString("N"),        // 00000000000000000000000000000000
+                _guid.ToString(),           // 00000000-0000-0000-0000-000000000000
                 _guid.ToString("B"),        // {00000000-0000-0000-0000-000000000000}
                 _guid.ToString("X")         // {0x00000000，0x0000，0x0000，{0x00，0x00，0x00，0x00，0x00，0x00，0x00，0x00}}
             };
