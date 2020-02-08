@@ -5,11 +5,9 @@ using System.Windows;
 
 namespace Wox.Plugin.Gen
 {
-    public class Main : IPlugin
+    public class Main : IPlugin, IPluginI18n
     {
         #region Const
-
-        private const string TEXT_COPY_TO_CLIPBOARD = "复制到剪贴板";
 
         /// <summary>
         /// 排在结果第一行
@@ -32,10 +30,12 @@ namespace Wox.Plugin.Gen
 
         #endregion
 
+        private PluginInitContext _context;
+
         private Random _random = new Random();
         private Guid _guid;
         private bool _holdGuid = false;
-        private Func<string, bool> _setToClipboard = value =>
+        private Func<string, bool> _copyToClipboard = value =>
         {
             Clipboard.SetText(value);
             return true;
@@ -43,6 +43,7 @@ namespace Wox.Plugin.Gen
 
         public void Init(PluginInitContext context)
         {
+            _context = context;
         }
 
         public List<Result> Query(Query query)
@@ -65,8 +66,8 @@ namespace Wox.Plugin.Gen
 
             results.Add(new Result
             {
-                Title = $"生成一切……",
-                SubTitle = "指令 guid uuid rand roll",
+                Title = GetTranslatedGlobalTipTitle(),
+                SubTitle = GetTranslatedGlobalTipSubTitle(),
                 IcoPath = GEN_ICON_PATH,
                 Action = e => true,
                 Score = HELPER_SCORE
@@ -115,13 +116,13 @@ namespace Wox.Plugin.Gen
             results = guidStrings.Select(s => new Result
             {
                 Title = s,
-                SubTitle = TEXT_COPY_TO_CLIPBOARD,
+                SubTitle = GetTranslatedGlobalTipCopyToClipboard(),
                 IcoPath = GUID_ICON_PATH,
-                Action = e => _setToClipboard(s),
+                Action = e => _copyToClipboard(s),
                 Score = MAX_SCORE
             }).ToList();
 
-            results.Add(CreateInfo("guid|uuid [u]", "生成 GUID。默认为小写，u 转换为大写。", GUID_ICON_PATH));
+            results.Add(CreateInfo(GetTranslatedGuidTitle(), GetTranslatedGuidSubTitle(), GUID_ICON_PATH));
 
             return results;
         }
@@ -176,9 +177,9 @@ namespace Wox.Plugin.Gen
                     results.Add(new Result
                     {
                         Title = value.ToString(),
-                        SubTitle = TEXT_COPY_TO_CLIPBOARD,
+                        SubTitle = GetTranslatedGlobalTipCopyToClipboard(),
                         IcoPath = RAND_ICON_PATH,
-                        Action = e => _setToClipboard(valueString),
+                        Action = e => _copyToClipboard(valueString),
                         Score = MAX_SCORE
                     });
                 }
@@ -188,7 +189,7 @@ namespace Wox.Plugin.Gen
                 results.Add(new Result
                 {
                     Title = ex.Message.Replace("\r", String.Empty).Replace("\n", String.Empty),
-                    SubTitle = "请输入正确的数字",
+                    SubTitle = GetTranslatedRandExceptionSubTitle(),
                     IcoPath = RAND_ICON_PATH,
                     Action = e => true,
                     Score = MAX_SCORE
@@ -196,8 +197,8 @@ namespace Wox.Plugin.Gen
             }
 
             results.Add(CreateInfo(
-                "rand|roll [[max]|[min max]]",
-                "生成随机整数。默认>=0 并且 <100，min 指定最小值，max 指定最大值。",
+                GetTranslatedRandTitle(),
+                GetTranslatedRandSubTitle(),
                 RAND_ICON_PATH));
 
             return results;
@@ -225,6 +226,61 @@ namespace Wox.Plugin.Gen
                 Score = COMMAND_SCORE
             };
         }
+
+        #endregion
+
+        #region I18n
+
+        public string GetTranslatedPluginTitle()
+        {
+            return _context.API.GetTranslation("wox_plugin_gen_plugin_name");
+        }
+
+        public string GetTranslatedPluginDescription()
+        {
+            return _context.API.GetTranslation("wox_plugin_gen_plugin_description");
+        }
+
+        private string GetTranslatedGlobalTipTitle()
+        {
+            return _context.API.GetTranslation("wox_plugin_gen_global_tip_title");
+        }
+
+        private string GetTranslatedGlobalTipSubTitle()
+        {
+            return _context.API.GetTranslation("wox_plugin_gen_global_tip_sub_title");
+        }
+
+        private string GetTranslatedGlobalTipCopyToClipboard()
+        {
+            return _context.API.GetTranslation("wox_plugin_gen_global_tip_copy_to_clipboard");
+        }
+
+        private string GetTranslatedGuidSubTitle()
+        {
+            return _context.API.GetTranslation("wox_plugin_gen_guid_sub_title");
+        }
+
+        private string GetTranslatedGuidTitle()
+        {
+            return _context.API.GetTranslation("wox_plugin_gen_guid_title");
+        }
+
+        private string GetTranslatedRandSubTitle()
+        {
+            return _context.API.GetTranslation("wox_plugin_gen_rand_sub_title");
+        }
+
+        private string GetTranslatedRandTitle()
+        {
+            return _context.API.GetTranslation("wox_plugin_gen_rand_title");
+        }
+
+        private string GetTranslatedRandExceptionSubTitle()
+        {
+            return _context.API.GetTranslation("wox_plugin_gen_rand_exception_sub_title");
+        }
+
 
         #endregion
     }

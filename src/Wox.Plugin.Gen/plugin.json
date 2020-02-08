@@ -1,12 +1,12 @@
 {
     "ID": "AC1661A8B7394AD3B8322354A1E5B9BF",
     "ActionKeyword": "gen",
-    "Name": "Generater",
-    "Description": "Generate GUID (UUID), random numbers, etc.",
+    "Name": "Generator",
+    "Description": "A GUID (UUID), random number generation plugin",
     "Author": "huhubun",
     "Version": "0.1.0",
     "Language": "csharp",
-    "Website": "https://bun.dev",
+    "Website": "https://github.com/huhubun/Wox.Plugin.Gen",
     "IcoPath": "Images\\gen.png",
     "ExecuteFileName": "Wox.Plugin.Gen.dll"
 }

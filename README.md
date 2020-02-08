@@ -1,4 +1,4 @@
-# Wox.Plugin.Gen —— Wox 随机生成插件
+# Wox.Plugin.Gen —— 生成器： GUID(UUID)、随机数生成插件
 
 - [Wox](https://github.com/Wox-launcher/Wox)
 
