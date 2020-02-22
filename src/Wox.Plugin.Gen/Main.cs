@@ -349,7 +349,7 @@ namespace Wox.Plugin.Gen
             {
                 Title = title,
                 SubTitle = subTitle,
-                IcoPath = Icons.GUID_ICON_PATH,
+                IcoPath = icoPath,
                 Action = e => false,
                 Score = Scores.COMMAND_SCORE
             };
