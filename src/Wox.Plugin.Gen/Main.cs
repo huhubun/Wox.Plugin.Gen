@@ -268,16 +268,19 @@ namespace Wox.Plugin.Gen
         {
             var results = new List<Result>();
 
-            var base64String = Convert.ToBase64String(Encoding.UTF8.GetBytes(query.SecondSearch));
-
-            results.Add(new Result
+            if (!String.IsNullOrEmpty(query.SecondSearch))
             {
-                Title = base64String,
-                SubTitle = GetTranslatedGlobalTipCopyToClipboard(),
-                IcoPath = Icons.LOCK_ICON_PATH,
-                Action = e => _copyToClipboard(base64String),
-                Score = Scores.MAX_SCORE
-            });
+                var base64String = Convert.ToBase64String(Encoding.UTF8.GetBytes(query.SecondSearch));
+
+                results.Add(new Result
+                {
+                    Title = base64String,
+                    SubTitle = GetTranslatedGlobalTipCopyToClipboard(),
+                    IcoPath = Icons.LOCK_ICON_PATH,
+                    Action = e => _copyToClipboard(base64String),
+                    Score = Scores.MAX_SCORE
+                });
+            }
 
             results.Add(CreateInfo(GetTranslatedEncodeBase64Title(), GetTranslatedEncodeBase64SubTitle(), Icons.LOCK_ICON_PATH));
 
