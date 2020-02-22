@@ -1,37 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Windows;
+using Wox.Plugin.Gen.Const;
 using Wox.Plugin.Gen.Extensions;
 
 namespace Wox.Plugin.Gen
 {
     public class Main : IPlugin, IPluginI18n
     {
-        #region Const
-
-        /// <summary>
-        /// 排在结果第一行
-        /// </summary>
-        private const int MAX_SCORE = 999;
-
-        /// <summary>
-        /// 当前 command 的 helper 确保显示在倒数第二行
-        /// </summary>
-        private const int COMMAND_SCORE = 2;
-
-        /// <summary>
-        /// global tip 确保显示在最后一行
-        /// </summary>
-        private const int GLOBAL_TIP_SCORE = -1;
-
-        private const string GEN_ICON_PATH = "Images/gen.png";
-        private const string GUID_ICON_PATH = "Images/key.png";
-        private const string RAND_ICON_PATH = "Images/dice.png";
-        private const string TIME_ICON_PATH = "Images/time.png";
-
-        #endregion
-
         private PluginInitContext _context;
 
         private Random _random = new Random();
@@ -72,14 +50,35 @@ namespace Wox.Plugin.Gen
                 results.AddRange(UnixTimestampGen());
             }
 
+            if (IsHitEncodeBase64(query))
+            {
+                results.AddRange(EncodeBase64(query));
+            }
+
+            if (IsHitDecodeBase64(query))
+            {
+                results.AddRange(DecodeBase64(query));
+            }
+
             results.Add(new Result
             {
                 Title = GetTranslatedGlobalTipTitle(),
                 SubTitle = GetTranslatedGlobalTipSubTitle(),
-                IcoPath = GEN_ICON_PATH,
+                IcoPath = Icons.GEN_ICON_PATH,
                 Action = e => false,
-                Score = GLOBAL_TIP_SCORE
+                Score = Scores.GLOBAL_TIP_SCORE
             });
+
+#if DEBUG
+            results.Add(new Result
+            {
+                Title = $"ActionKeyword = [{query.ActionKeyword}], Search = [{query.Search}]",
+                SubTitle = $"FirstSearch = [{query.FirstSearch}], SecondSearch = [{query.SecondSearch}], ThirdSearch = [{query.ThirdSearch}]",
+                IcoPath = Icons.GEN_ICON_PATH,
+                Action = e => false,
+                Score = Scores.GLOBAL_TIP_SCORE
+            });
+#endif
 
             return results;
         }
@@ -125,12 +124,12 @@ namespace Wox.Plugin.Gen
             {
                 Title = s,
                 SubTitle = GetTranslatedGlobalTipCopyToClipboard(),
-                IcoPath = GUID_ICON_PATH,
+                IcoPath = Icons.GUID_ICON_PATH,
                 Action = e => _copyToClipboard(s),
-                Score = MAX_SCORE - index
+                Score = Scores.MAX_SCORE - index
             }).ToList();
 
-            results.Add(CreateInfo(GetTranslatedGuidTitle(), GetTranslatedGuidSubTitle(), GUID_ICON_PATH));
+            results.Add(CreateInfo(GetTranslatedGuidTitle(), GetTranslatedGuidSubTitle(), Icons.GUID_ICON_PATH));
 
             return results;
         }
@@ -186,9 +185,9 @@ namespace Wox.Plugin.Gen
                     {
                         Title = value.ToString(),
                         SubTitle = GetTranslatedGlobalTipCopyToClipboard(),
-                        IcoPath = RAND_ICON_PATH,
+                        IcoPath = Icons.RAND_ICON_PATH,
                         Action = e => _copyToClipboard(valueString),
-                        Score = MAX_SCORE
+                        Score = Scores.MAX_SCORE
                     });
                 }
             }
@@ -198,16 +197,16 @@ namespace Wox.Plugin.Gen
                 {
                     Title = ex.Message.Replace("\r", String.Empty).Replace("\n", String.Empty),
                     SubTitle = GetTranslatedRandExceptionSubTitle(),
-                    IcoPath = RAND_ICON_PATH,
+                    IcoPath = Icons.RAND_ICON_PATH,
                     Action = e => true,
-                    Score = MAX_SCORE
+                    Score = Scores.MAX_SCORE
                 });
             }
 
             results.Add(CreateInfo(
                 GetTranslatedRandTitle(),
                 GetTranslatedRandSubTitle(),
-                RAND_ICON_PATH));
+                Icons.RAND_ICON_PATH));
 
             return results;
         }
@@ -246,12 +245,89 @@ namespace Wox.Plugin.Gen
             {
                 Title = utcDatetime.ToUnixTimeSeconds().ToString(),
                 SubTitle = tipStrings[index] + GetTranslatedGlobalTipCopyToClipboard(),
-                IcoPath = TIME_ICON_PATH,
-                Action = e => _copyToClipboard(s), 
-                Score = MAX_SCORE - index
+                IcoPath = Icons.TIME_ICON_PATH,
+                Action = e => _copyToClipboard(s),
+                Score = Scores.MAX_SCORE - index
             }));
 
-            results.Add(CreateInfo(GetTranslatedUnixTimestampTitle(), GetTranslatedUnixTimestampSubTitle(), TIME_ICON_PATH));
+            results.Add(CreateInfo(GetTranslatedUnixTimestampTitle(), GetTranslatedUnixTimestampSubTitle(), Icons.TIME_ICON_PATH));
+
+            return results;
+        }
+
+        #endregion
+
+        #region Base64 加密
+
+        private bool IsHitEncodeBase64(Query query)
+        {
+            return query.FirstSearch.EqualsAny("encodebase64");
+        }
+
+        private List<Result> EncodeBase64(Query query)
+        {
+            var results = new List<Result>();
+
+            var base64String = Convert.ToBase64String(Encoding.UTF8.GetBytes(query.SecondSearch));
+
+            results.Add(new Result
+            {
+                Title = base64String,
+                SubTitle = GetTranslatedGlobalTipCopyToClipboard(),
+                IcoPath = Icons.LOCK_ICON_PATH,
+                Action = e => _copyToClipboard(base64String),
+                Score = Scores.MAX_SCORE
+            });
+
+            results.Add(CreateInfo(GetTranslatedEncodeBase64Title(), GetTranslatedEncodeBase64SubTitle(), Icons.LOCK_ICON_PATH));
+
+            return results;
+        }
+
+        #endregion
+
+        #region Base64 解密
+
+        private bool IsHitDecodeBase64(Query query)
+        {
+            return query.FirstSearch.EqualsAny("decodebase64");
+        }
+
+        private List<Result> DecodeBase64(Query query)
+        {
+            var results = new List<Result>();
+
+            try
+            {
+                var base64Bytes = Convert.FromBase64String(query.SecondSearch);
+
+                if (base64Bytes.Length > 0)
+                {
+                    var str = Encoding.UTF8.GetString(base64Bytes);
+
+                    results.Add(new Result
+                    {
+                        Title = str,
+                        SubTitle = GetTranslatedGlobalTipCopyToClipboard(),
+                        IcoPath = Icons.UNLOCK_ICON_PATH,
+                        Action = e => _copyToClipboard(str),
+                        Score = Scores.MAX_SCORE
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                results.Add(new Result
+                {
+                    Title = ex.Message,
+                    SubTitle = GetTranslatedGlobalTipCopyToClipboard(),
+                    IcoPath = Icons.UNLOCK_ICON_PATH,
+                    Action = e => true,
+                    Score = Scores.MAX_SCORE
+                });
+            }
+
+            results.Add(CreateInfo(GetTranslatedDecodeBase64Title(), GetTranslatedDecodeBase64SubTitle(), Icons.UNLOCK_ICON_PATH));
 
             return results;
         }
@@ -273,9 +349,9 @@ namespace Wox.Plugin.Gen
             {
                 Title = title,
                 SubTitle = subTitle,
-                IcoPath = GUID_ICON_PATH,
+                IcoPath = Icons.GUID_ICON_PATH,
                 Action = e => false,
-                Score = COMMAND_SCORE
+                Score = Scores.COMMAND_SCORE
             };
         }
 
@@ -357,6 +433,27 @@ namespace Wox.Plugin.Gen
             return _context.API.GetTranslation("wox_plugin_gen_unix_timestamp_tip_local");
         }
 
+        // Base64 加密
+        private string GetTranslatedEncodeBase64SubTitle()
+        {
+            return _context.API.GetTranslation("wox_plugin_gen_encode_base64_sub_title");
+        }
+
+        private string GetTranslatedEncodeBase64Title()
+        {
+            return _context.API.GetTranslation("wox_plugin_gen_encode_base64_title");
+        }
+
+        // Base64 解密
+        private string GetTranslatedDecodeBase64SubTitle()
+        {
+            return _context.API.GetTranslation("wox_plugin_gen_decode_base64_sub_title");
+        }
+
+        private string GetTranslatedDecodeBase64Title()
+        {
+            return _context.API.GetTranslation("wox_plugin_gen_decode_base64_title");
+        }
         #endregion
     }
 }

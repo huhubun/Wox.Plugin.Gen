@@ -3,10 +3,10 @@
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
     <system:String x:Key="wox_plugin_gen_plugin_name">生成器</system:String>
-    <system:String x:Key="wox_plugin_gen_plugin_description">为Wox提供生成GUID(UUID)和随机数的能力</system:String>
+    <system:String x:Key="wox_plugin_gen_plugin_description">为Wox提供生成GUID(UUID)、随机数、Unix 时间戳、Base64 加解密的能力</system:String>
 
     <system:String x:Key="wox_plugin_gen_global_tip_title">生成一切……</system:String>
-    <system:String x:Key="wox_plugin_gen_global_tip_sub_title">指令 guid uuid rand roll timestamp unixtime</system:String>
+    <system:String x:Key="wox_plugin_gen_global_tip_sub_title">指令 guid uuid rand roll timestamp unixtime encodebase64 decodebase64</system:String>
     <system:String x:Key="wox_plugin_gen_global_tip_copy_to_clipboard">复制到剪贴板</system:String>
 
     <system:String x:Key="wox_plugin_gen_guid_title">guid|uuid [u]</system:String>
@@ -18,13 +18,16 @@
 
     <system:String x:Key="wox_plugin_gen_unix_timestamp_title">timestamp|unixtime</system:String>
     <system:String x:Key="wox_plugin_gen_unix_timestamp_sub_title">生成当前时间的 Unix 时间戳</system:String>
-
     <!-- {0} 转换为计算机区域格式的 UTC 时间字符串 -->
     <system:String x:Key="wox_plugin_gen_unix_timestamp_tip_utc">（UTC 时间：{0}）</system:String>
-
     <!-- {0} 计算机时区名称 -->
     <!-- {1} 转换为计算机区域格式的当地时间字符串 -->
     <!-- 效果：（中国标准时间：2020/2/22 13:05:58）-->
     <system:String x:Key="wox_plugin_gen_unix_timestamp_tip_local">（{0}：{1}）</system:String>
 
+    <system:String x:Key="wox_plugin_gen_encode_base64_title">encodebase64</system:String>
+    <system:String x:Key="wox_plugin_gen_encode_base64_sub_title">为输入的内容进行 Base64 加密</system:String>
+
+    <system:String x:Key="wox_plugin_gen_decode_base64_title">decodebase64</system:String>
+    <system:String x:Key="wox_plugin_gen_decode_base64_sub_title">为输入的内容进行 Base64 解密</system:String>
 </ResourceDictionary>
