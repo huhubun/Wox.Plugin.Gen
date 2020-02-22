@@ -6,7 +6,7 @@
     <system:String x:Key="wox_plugin_gen_plugin_description">为Wox提供生成GUID(UUID)和随机数的能力</system:String>
 
     <system:String x:Key="wox_plugin_gen_global_tip_title">生成一切……</system:String>
-    <system:String x:Key="wox_plugin_gen_global_tip_sub_title">指令 guid uuid rand roll</system:String>
+    <system:String x:Key="wox_plugin_gen_global_tip_sub_title">指令 guid uuid rand roll timestamp unixtime</system:String>
     <system:String x:Key="wox_plugin_gen_global_tip_copy_to_clipboard">复制到剪贴板</system:String>
 
     <system:String x:Key="wox_plugin_gen_guid_title">guid|uuid [u]</system:String>
@@ -15,5 +15,16 @@
     <system:String x:Key="wox_plugin_gen_rand_title">rand|roll [[max]|[min max]]</system:String>
     <system:String x:Key="wox_plugin_gen_rand_sub_title">生成随机整数。默认为 [0, 100) 之间。min 指定最小值，max 指定最大值</system:String>
     <system:String x:Key="wox_plugin_gen_rand_exception_sub_title">请输入正确的数字</system:String>
-    
+
+    <system:String x:Key="wox_plugin_gen_unix_timestamp_title">timestamp|unixtime</system:String>
+    <system:String x:Key="wox_plugin_gen_unix_timestamp_sub_title">生成当前时间的 Unix 时间戳</system:String>
+
+    <!-- {0} 转换为计算机区域格式的 UTC 时间字符串 -->
+    <system:String x:Key="wox_plugin_gen_unix_timestamp_tip_utc">（UTC 时间：{0}）</system:String>
+
+    <!-- {0} 计算机时区名称 -->
+    <!-- {1} 转换为计算机区域格式的当地时间字符串 -->
+    <!-- 效果：（中国标准时间：2020/2/22 13:05:58）-->
+    <system:String x:Key="wox_plugin_gen_unix_timestamp_tip_local">（{0}：{1}）</system:String>
+
 </ResourceDictionary>

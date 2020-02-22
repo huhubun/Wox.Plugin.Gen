@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Wox.Plugin.Gen
+namespace Wox.Plugin.Gen.Extensions
 {
-    public static class StringExtensions
+    public static class StringExtension
     {
         /// <summary>
         /// 忽略大小写并判断两个字符串内容是否一致

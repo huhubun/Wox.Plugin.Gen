@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using Wox.Plugin.Gen.Extensions;
 
 namespace Wox.Plugin.Gen
 {
@@ -27,6 +28,7 @@ namespace Wox.Plugin.Gen
         private const string GEN_ICON_PATH = "Images/gen.png";
         private const string GUID_ICON_PATH = "Images/key.png";
         private const string RAND_ICON_PATH = "Images/dice.png";
+        private const string TIME_ICON_PATH = "Images/time.png";
 
         #endregion
 
@@ -50,6 +52,7 @@ namespace Wox.Plugin.Gen
         {
             List<Result> results = new List<Result>();
 
+
             if (IsHitGuidGen(query))
             {
                 results.AddRange(GuidGen(query));
@@ -62,6 +65,11 @@ namespace Wox.Plugin.Gen
             if (IsHitRandomGen(query))
             {
                 results.AddRange(RandomGen(query));
+            }
+
+            if (IsHitaUnixTimestampGen(query))
+            {
+                results.AddRange(UnixTimestampGen());
             }
 
             results.Add(new Result
@@ -206,6 +214,50 @@ namespace Wox.Plugin.Gen
 
         #endregion
 
+        #region Unix timestamp
+
+        private bool IsHitaUnixTimestampGen(Query query)
+        {
+            return query.FirstSearch.EqualsAny("unixtime", "timestamp");
+        }
+
+        private List<Result> UnixTimestampGen()
+        {
+            var results = new List<Result>();
+
+            var utcDatetime = DateTimeOffset.UtcNow;
+
+            var unixTimeStrings = new string[]
+            {
+                // UTC 时间戳
+                utcDatetime.ToUnixTimeSeconds().ToString(),
+
+                // 当前计算机时区时间戳
+                utcDatetime.ToLocalTime().ToUnixTimeSeconds().ToString()
+            };
+
+            var tipStrings = new string[]
+            {
+                String.Format(GetTranslatedUnixTimestampUtcTipSubTitle(), utcDatetime.DateTime.ToString()),
+                String.Format(GetTranslatedUnixTimestampLocalTipSubTitle(),TimeZoneInfo.Local.StandardName, utcDatetime.ToLocalTime().DateTime.ToString())
+            };
+
+            results.AddRange(unixTimeStrings.Select((s, index) => new Result
+            {
+                Title = utcDatetime.ToUnixTimeSeconds().ToString(),
+                SubTitle = tipStrings[index] + GetTranslatedGlobalTipCopyToClipboard(),
+                IcoPath = TIME_ICON_PATH,
+                Action = e => _copyToClipboard(s), 
+                Score = MAX_SCORE - index
+            }));
+
+            results.Add(CreateInfo(GetTranslatedUnixTimestampTitle(), GetTranslatedUnixTimestampSubTitle(), TIME_ICON_PATH));
+
+            return results;
+        }
+
+        #endregion
+
         #region Private
 
         /// <summary>
@@ -231,6 +283,7 @@ namespace Wox.Plugin.Gen
 
         #region I18n
 
+        // 通用
         public string GetTranslatedPluginTitle()
         {
             return _context.API.GetTranslation("wox_plugin_gen_plugin_name");
@@ -256,6 +309,7 @@ namespace Wox.Plugin.Gen
             return _context.API.GetTranslation("wox_plugin_gen_global_tip_copy_to_clipboard");
         }
 
+        // GUID 生成
         private string GetTranslatedGuidSubTitle()
         {
             return _context.API.GetTranslation("wox_plugin_gen_guid_sub_title");
@@ -266,6 +320,7 @@ namespace Wox.Plugin.Gen
             return _context.API.GetTranslation("wox_plugin_gen_guid_title");
         }
 
+        // 随机数生成
         private string GetTranslatedRandSubTitle()
         {
             return _context.API.GetTranslation("wox_plugin_gen_rand_sub_title");
@@ -281,6 +336,26 @@ namespace Wox.Plugin.Gen
             return _context.API.GetTranslation("wox_plugin_gen_rand_exception_sub_title");
         }
 
+        // 时间戳生成
+        private string GetTranslatedUnixTimestampSubTitle()
+        {
+            return _context.API.GetTranslation("wox_plugin_gen_unix_timestamp_sub_title");
+        }
+
+        private string GetTranslatedUnixTimestampTitle()
+        {
+            return _context.API.GetTranslation("wox_plugin_gen_unix_timestamp_title");
+        }
+
+        private string GetTranslatedUnixTimestampUtcTipSubTitle()
+        {
+            return _context.API.GetTranslation("wox_plugin_gen_unix_timestamp_tip_utc");
+        }
+
+        private string GetTranslatedUnixTimestampLocalTipSubTitle()
+        {
+            return _context.API.GetTranslation("wox_plugin_gen_unix_timestamp_tip_local");
+        }
 
         #endregion
     }
