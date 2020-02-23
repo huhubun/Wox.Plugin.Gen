@@ -6,7 +6,7 @@
     <system:String x:Key="wox_plugin_gen_plugin_description">为Wox提供生成GUID(UUID)、随机数、Unix 时间戳、Base64 加解密的能力</system:String>
 
     <system:String x:Key="wox_plugin_gen_global_tip_title">生成一切……</system:String>
-    <system:String x:Key="wox_plugin_gen_global_tip_sub_title">指令 guid uuid rand roll timestamp unixtime encodebase64 decodebase64</system:String>
+    <system:String x:Key="wox_plugin_gen_global_tip_sub_title">指令 {0}</system:String>
     <system:String x:Key="wox_plugin_gen_global_tip_copy_to_clipboard">复制到剪贴板</system:String>
 
     <system:String x:Key="wox_plugin_gen_guid_title">guid|uuid [u]</system:String>

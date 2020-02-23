@@ -35,6 +35,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -53,6 +54,13 @@
     <Compile Include="Const\Scores.cs" />
     <Compile Include="Extensions\DateTimeExtension.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
+    <Compile Include="Functions\DecodeBase64Function.cs" />
+    <Compile Include="Functions\EncodeBase64Function.cs" />
+    <Compile Include="Functions\FunctionBase.cs" />
+    <Compile Include="Functions\GuidFunction.cs" />
+    <Compile Include="Functions\RandomFunction.cs" />
+    <Compile Include="Functions\UnixTimestampFunction.cs" />
+    <Compile Include="GenQuery.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
