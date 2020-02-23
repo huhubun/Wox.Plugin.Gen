@@ -39,5 +39,15 @@ namespace Wox.Plugin.Gen.Extensions
         {
             return values.Any(v => source.BetterEquals(v));
         }
+
+        /// <summary>
+        /// 移除换行符 \r 和 \n
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string RemoveLineWrapping(this string str)
+        {
+            return str.Replace("\r", String.Empty).Replace("\n", String.Empty);
+        }
     }
 }

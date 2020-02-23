@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Wox.Plugin.Gen.Const;
+using Wox.Plugin.Gen.Extensions;
 
 namespace Wox.Plugin.Gen.Functions
 {
@@ -62,7 +63,7 @@ namespace Wox.Plugin.Gen.Functions
             {
                 results.Add(new Result
                 {
-                    Title = ex.Message.Replace("\r", String.Empty).Replace("\n", String.Empty),
+                    Title = ex.Message.RemoveLineWrapping(),
                     SubTitle = GetTranslatedRandExceptionSubTitle(),
                     IcoPath = Icons.RAND_ICON_PATH,
                     Action = e => true,
