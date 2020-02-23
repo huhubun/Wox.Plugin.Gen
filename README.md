@@ -2,95 +2,97 @@
 
 - [Wox](https://github.com/Wox-launcher/Wox)
 
-## 使用
+- [中文说明](https://github.com/huhubun/Wox.Plugin.Gen/blob/master/README_zh-cn.md)
+
+## Usage
 
 ![sample](./resources/sample.gif)
 
-默认快捷键 `gen`
+Default trigger keyword `gen`
 
-## 指令
+## Commands
 
-### 自动补全
-输入指令的开头几个字母，会自动显示出匹配的指令，通过 <kbd>Tab</kbd> 来切换，通过 <kbd>Enter</kbd> 来选中。当指令名称很长时，能提高输入的效率。
+### Auto complete
+Enter the first few characters of the command, matching commands will be shown automatically, use <kbd>Tab</kbd> to switch between options and <kbd>Enter</kbd> to choose. This will become handy when the coomand is long.
 
 ### guid
 ```
 guid [u]
 ```
 
-生成一个 GUID，默认为小写、四种样式的 GUID：
+Generate a GUID, by default the result will be in lower case with 4 styles.
 - `00000000000000000000000000000000`
 - `00000000-0000-0000-0000-000000000000`
 - `{00000000-0000-0000-0000-000000000000}`
 - `{0x00000000，0x0000，0x0000，{0x00，0x00，0x00，0x00，0x00，0x00，0x00，0x00}}`
 
-可选参数
-- `u` 生成大写 GUID
+Optional parameter
+- `u` for generate GUID in all caps
 
 ### uuid
 ```
 uuid [u]
 ```
 
-同 `guid`
+Refer to `guid`
 
 ### rand
 ```
 rand [[max]|[min max]]
 ```
 
-生成一个随机整数，默认为 [0, 100) 间
+Generates a random integer, by default between 0 (inclusive) and 100 (exclusive)
 
-可选参数
-- `max` 指定一个最大值，将生成 [0, max) 间的随机数
-- `min max` 指定最小值和最大值，将生成 [min, max) 间的随机数
+Optional parameter
+- `max` Specifed maximum value, the upper bound of the range, exclusive.
+- `min max` Specified min and max value, the number generated will be in range [min, max).
 
 ### roll
 ```
 roll [[max]|[min max]]
 ```
 
-同 `rand`
+Refer to `rand`
 
 ### unixtime
 ```
 unixtime [unix_timestamp]
 ```
 
-生成当前时间的 Unix 时间戳，或将填写的时间戳转为日期和时间
+Conver the current time to Unix timestamp or covert the unix timestamp to date and time.
 
-可选参数
-- `unix_timestamp` 指定要转换的 Unix 时间戳
+Optional parameter 
+- `unix_timestamp` The Unix timestamp to be converted to date and time
 
 ### timestamp
 ```
 timestamp [unix_timestamp]
 ```
 
-同 `unixtime`
+Refer to `unixtime`
 
 ### encodebase64
 ```
 encodebase64 text
 ```
 
-为输入的内容进行 Base64 编码
+Encode the content entered to Base64.
 
-必填参数
-- `text` 要进行 Base64 编码的字符串
+Required parameter
+- `text` Plain text to encode
 
 ### decodebase64
 ```
 decodebase64 base64
 ```
 
-为输入的内容进行 Base64 解码
+Decode the content enter from Base64
 
-必填参数
-- `base64` 要进行解码的 Base64 字符串
+Required parameter
+- `base64` Base64 content to decode
 
 ## TODO
 - 多语言支持 #1
 
-## 鸣谢
-- 基础图标资源（不含背景色）来自 [阿里巴巴矢量图标库](https://www.iconfont.cn/)
+## Credits
+- Basic icons from [Alibaba icon resources](https://www.iconfont.cn/)
