@@ -11,6 +11,8 @@ namespace Wox.Plugin.Gen.Functions
 
         public override string[] Keywords => new string[] { "rand", "roll" };
 
+        public override string Usage => "rand|roll [[max]|[min max]]";
+
         public RandomFunction(PluginInitContext context) : base(context)
         {
             _random = new Random();
@@ -78,7 +80,7 @@ namespace Wox.Plugin.Gen.Functions
 
         public override Result GetInfoResult()
         {
-            return CreateInfo(GetTranslatedRandTitle(), GetTranslatedRandSubTitle(), Icons.RAND_ICON_PATH);
+            return CreateInfo(Usage, GetTranslatedRandSubTitle(), Icons.RAND_ICON_PATH);
         }
 
         #region i18n
@@ -86,11 +88,6 @@ namespace Wox.Plugin.Gen.Functions
         private string GetTranslatedRandSubTitle()
         {
             return GetTranslation("wox_plugin_gen_rand_sub_title");
-        }
-
-        private string GetTranslatedRandTitle()
-        {
-            return GetTranslation("wox_plugin_gen_rand_title");
         }
 
         private string GetTranslatedRandExceptionSubTitle()

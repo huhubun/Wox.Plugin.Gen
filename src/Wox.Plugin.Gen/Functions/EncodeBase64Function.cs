@@ -9,6 +9,8 @@ namespace Wox.Plugin.Gen.Functions
     {
         public override string[] Keywords => new string[] { "encodebase64" };
 
+        public override string Usage => "encodebase64 text";
+
         public EncodeBase64Function(PluginInitContext context) : base(context) { }
 
         public override List<Result> GetResults(GenQuery query)
@@ -36,7 +38,7 @@ namespace Wox.Plugin.Gen.Functions
 
         public override Result GetInfoResult()
         {
-            return CreateInfo(GetTranslatedEncodeBase64Title(), GetTranslatedEncodeBase64SubTitle(), Icons.LOCK_ICON_PATH);
+            return CreateInfo(Usage, GetTranslatedEncodeBase64SubTitle(), Icons.LOCK_ICON_PATH);
         }
 
 
@@ -45,11 +47,6 @@ namespace Wox.Plugin.Gen.Functions
         private string GetTranslatedEncodeBase64SubTitle()
         {
             return GetTranslation("wox_plugin_gen_encode_base64_sub_title");
-        }
-
-        private string GetTranslatedEncodeBase64Title()
-        {
-            return GetTranslation("wox_plugin_gen_encode_base64_title");
         }
 
         #endregion

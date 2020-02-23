@@ -9,24 +9,19 @@
     <system:String x:Key="wox_plugin_gen_global_tip_sub_title">支持的指令 {0}</system:String>
     <system:String x:Key="wox_plugin_gen_global_tip_copy_to_clipboard">复制到剪贴板</system:String>
 
-    <system:String x:Key="wox_plugin_gen_guid_title">guid|uuid [u]</system:String>
     <system:String x:Key="wox_plugin_gen_guid_sub_title">生成 GUID(UUID)，默认为小写。[u：转换为大写]</system:String>
 
-    <system:String x:Key="wox_plugin_gen_rand_title">rand|roll [[max]|[min max]]</system:String>
     <system:String x:Key="wox_plugin_gen_rand_sub_title">生成随机整数。默认为 [0, 100) 之间。[min：指定最小值] [max：指定最大值]</system:String>
     <system:String x:Key="wox_plugin_gen_rand_exception_sub_title">请输入正确的数字</system:String>
 
-    <system:String x:Key="wox_plugin_gen_unix_timestamp_title">timestamp|unixtime [unix_timestamp]</system:String>
     <system:String x:Key="wox_plugin_gen_unix_timestamp_sub_title">生成当前时间的 Unix 时间戳，或将填写的时间戳转为日期和时间。[unix_timestamp：指定要转换的 Unix 时间戳]</system:String>
     <system:String x:Key="wox_plugin_gen_unix_timestamp_tip_utc">UTC 时间</system:String>
     <!-- {0} 计算机时区标准名称，如“中国标准时间” -->
-    <!-- {0} 计算机时区显示名称，如“UTC+08:00) 北京，重庆，香港特别行政区，乌鲁木齐” -->
+    <!-- {1} 计算机时区显示名称，如“UTC+08:00) 北京，重庆，香港特别行政区，乌鲁木齐” -->
     <system:String x:Key="wox_plugin_gen_unix_timestamp_tip_local">{0}：{1}</system:String>
     <system:String x:Key="wox_plugin_gen_unix_timestamp_exception_sub_title">请输入正确的时间戳</system:String>
 
-    <system:String x:Key="wox_plugin_gen_encode_base64_title">encodebase64 text</system:String>
     <system:String x:Key="wox_plugin_gen_encode_base64_sub_title">为输入的内容进行 Base64 编码。text：要进行 Base64 编码的字符串</system:String>
 
-    <system:String x:Key="wox_plugin_gen_decode_base64_title">decodebase64 base64</system:String>
     <system:String x:Key="wox_plugin_gen_decode_base64_sub_title">为输入的内容进行 Base64 解码。base64：要进行解码的 Base64 字符串</system:String>
 </ResourceDictionary>

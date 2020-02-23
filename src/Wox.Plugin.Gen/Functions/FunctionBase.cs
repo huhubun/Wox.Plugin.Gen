@@ -17,6 +17,8 @@ namespace Wox.Plugin.Gen.Functions
 
         public virtual string[] Keywords { get; }
 
+        public virtual string Usage { get; }
+
         public FunctionBase(PluginInitContext context)
         {
             _context = context;

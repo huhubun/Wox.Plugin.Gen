@@ -9,6 +9,8 @@ namespace Wox.Plugin.Gen.Functions
     {
         public override string[] Keywords => new string[] { "decodebase64" };
 
+        public override string Usage => "decodebase64 base64";
+
         public DecodeBase64Function(PluginInitContext context) : base(context) { }
 
         public override List<Result> GetResults(GenQuery query)
@@ -51,7 +53,7 @@ namespace Wox.Plugin.Gen.Functions
 
         public override Result GetInfoResult()
         {
-            return CreateInfo(GetTranslatedDecodeBase64Title(), GetTranslatedDecodeBase64SubTitle(), Icons.UNLOCK_ICON_PATH);
+            return CreateInfo(Usage, GetTranslatedDecodeBase64SubTitle(), Icons.UNLOCK_ICON_PATH);
         }
 
         #region i18n

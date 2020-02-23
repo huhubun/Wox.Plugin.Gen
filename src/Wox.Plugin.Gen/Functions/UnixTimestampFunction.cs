@@ -9,6 +9,8 @@ namespace Wox.Plugin.Gen.Functions
     {
         public override string[] Keywords => new string[] { "unixtime", "timestamp" };
 
+        public override string Usage => "timestamp|unixtime [unix_timestamp]";
+
         public UnixTimestampFunction(PluginInitContext context) : base(context) { }
 
         public override List<Result> GetResults(GenQuery query)
@@ -82,7 +84,7 @@ namespace Wox.Plugin.Gen.Functions
 
         public override Result GetInfoResult()
         {
-            return CreateInfo(GetTranslatedUnixTimestampTitle(), GetTranslatedUnixTimestampSubTitle(), Icons.TIME_ICON_PATH);
+            return CreateInfo(Usage, GetTranslatedUnixTimestampSubTitle(), Icons.TIME_ICON_PATH);
         }
 
         #region i18n
@@ -90,11 +92,6 @@ namespace Wox.Plugin.Gen.Functions
         private string GetTranslatedUnixTimestampSubTitle()
         {
             return GetTranslation("wox_plugin_gen_unix_timestamp_sub_title");
-        }
-
-        private string GetTranslatedUnixTimestampTitle()
-        {
-            return GetTranslation("wox_plugin_gen_unix_timestamp_title");
         }
 
         private string GetTranslatedUnixTimestampUtcTipSubTitle()

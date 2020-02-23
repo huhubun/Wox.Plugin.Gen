@@ -9,6 +9,8 @@ namespace Wox.Plugin.Gen.Functions
     {
         public override string[] Keywords => new string[] { "guid", "uuid" };
 
+        public override string Usage => "guid|uuid [u]";
+
         public GuidFunction(PluginInitContext context) : base(context) { }
 
         public override List<Result> GetResults(GenQuery query)
@@ -52,7 +54,7 @@ namespace Wox.Plugin.Gen.Functions
 
         public override Result GetInfoResult()
         {
-            return CreateInfo(GetTranslatedGuidTitle(), GetTranslatedGuidSubTitle(), Icons.GUID_ICON_PATH);
+            return CreateInfo(Usage, GetTranslatedGuidSubTitle(), Icons.GUID_ICON_PATH);
         }
 
         #region i18n
@@ -60,11 +62,6 @@ namespace Wox.Plugin.Gen.Functions
         private string GetTranslatedGuidSubTitle()
         {
             return GetTranslation("wox_plugin_gen_guid_sub_title");
-        }
-
-        private string GetTranslatedGuidTitle()
-        {
-            return GetTranslation("wox_plugin_gen_guid_title");
         }
 
         #endregion
