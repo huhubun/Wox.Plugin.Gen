@@ -23,5 +23,5 @@
 
     <system:String x:Key="wox_plugin_gen_encode_base64_sub_title">Please enter the plain text you want to encode to Base64. text: to be encoded to base64</system:String>
 
-    <system:String x:Key="wox_plugin_gen_encode_base64_sub_title">Please enter the string you want to decode from Base64. base64: to be decoded to base64</system:String>
+    <system:String x:Key="wox_plugin_gen_decode_base64_sub_title">Please enter the string you want to decode from Base64. base64: to be decoded to base64</system:String>
 </ResourceDictionary>
