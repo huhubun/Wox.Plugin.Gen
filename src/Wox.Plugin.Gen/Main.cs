@@ -122,13 +122,15 @@ namespace Wox.Plugin.Gen
             return _context.API.GetTranslation("wox_plugin_gen_global_tip_title");
         }
 
-        private string _translatedGlobalTipSubTitle;
+        private string _supportedKeys = null;
         protected string GetTranslatedGlobalTipSubTitle()
         {
-            return
-                _translatedGlobalTipSubTitle
-                ??
-                (_translatedGlobalTipSubTitle = String.Format(_context.API.GetTranslation("wox_plugin_gen_global_tip_sub_title"), String.Join(" ", _functions.Keys)));
+            if (_supportedKeys == null)
+            {
+                _supportedKeys = String.Join(" ", _functions.Keys);
+            }
+
+            return String.Format(_context.API.GetTranslation("wox_plugin_gen_global_tip_sub_title"), _supportedKeys);
         }
 
         #endregion
