@@ -1,8 +1,7 @@
 # Wox.Plugin.Gen —— 为 Wox 提供生成 GUID(UUID)、随机数、Unix 时间戳、Base64 加解密的能力
 
 - [Wox](https://github.com/Wox-launcher/Wox)
-
-- [中文说明](https://github.com/huhubun/Wox.Plugin.Gen/blob/master/README_zh-cn.md)
+- [中文说明](./README.zh-cn.md)
 
 ## Usage
 
@@ -91,8 +90,7 @@ Decode the content enter from Base64
 Required parameter
 - `base64` Base64 content to decode
 
-## TODO
-- 多语言支持 #1
-
 ## Credits
+- Localization
+  - **English** [KevinSJ](https://github.com/KevinSJ)
 - Basic icons from [Alibaba icon resources](https://www.iconfont.cn/)
